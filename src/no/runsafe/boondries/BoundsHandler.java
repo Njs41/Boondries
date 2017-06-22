@@ -38,9 +38,9 @@ public class BoundsHandler implements IConfigurationChanged
 				boundaries.put(worldName, new ArrayList<>(1));
 
 			boundaries.get(worldName).add(new Boundary(
-					Integer.parseInt(data[1]),
-					Integer.parseInt(data[2]),
-					Integer.parseInt(data[3])
+				Integer.parseInt(data[1]),
+				Integer.parseInt(data[2]),
+				Integer.parseInt(data[3])
 			));
 			boundaryCount++;
 		}

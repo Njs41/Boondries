@@ -36,7 +36,7 @@ public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlock
 			return true;
 
 		if (!flaggedPlayers.contains(player) && !player.isDead() && handler.isPastBoundary(to))
-				flagPlayer(player);
+			flagPlayer(player);
 
 		return true;
 	}
