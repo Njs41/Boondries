@@ -13,7 +13,6 @@ import no.runsafe.framework.api.player.IPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlockBreak, IBlockPlace
 {
@@ -36,7 +35,7 @@ public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlock
 		if (handler.isImmune(player))
 			return true;
 
-		if (!flaggedPlayers.contains(player.getUniqueId()) && !player.isDead() && handler.isPastBoundary(to))
+		if (!flaggedPlayers.contains(player) && !player.isDead() && handler.isPastBoundary(to))
 				flagPlayer(player);
 
 		return true;
@@ -44,8 +43,7 @@ public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlock
 
 	private void flagPlayer(final IPlayer player)
 	{
-		final UUID playerUIID = player.getUniqueId();
-		flaggedPlayers.add(playerUIID);
+		flaggedPlayers.add(player);
 		player.sendColouredMessage("&4You have travelled too far, turn back now or you will die!");
 		console.logWarning("Player %s has passed a boundary, preparing to terminate in %s seconds.", player.getName(), killTimer);
 		scheduler.startSyncTask(new Runnable()
@@ -56,7 +54,7 @@ public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlock
 				if (handler.isPastBoundary(player.getLocation()))
 					player.damage(500D); // Die, potato!
 
-				flaggedPlayers.remove(playerUIID);
+				flaggedPlayers.remove(player);
 			}
 		}, killTimer);
 	}
@@ -80,7 +78,7 @@ public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlock
 
 	private int killTimer;
 	private final BoundsHandler handler;
-	private final List<UUID> flaggedPlayers = new ArrayList<>(0);
+	private final List<IPlayer> flaggedPlayers = new ArrayList<>(0);
 	private final IConsole console;
 	private final IScheduler scheduler;
 }
