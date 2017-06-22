@@ -80,7 +80,7 @@ public class PlayerMonitor implements IConfigurationChanged, IPlayerMove, IBlock
 
 	private int killTimer;
 	private final BoundsHandler handler;
-	private final List<UUID> flaggedPlayers = new ArrayList<UUID>(0);
+	private final List<UUID> flaggedPlayers = new ArrayList<>(0);
 	private final IConsole console;
 	private final IScheduler scheduler;
 }
